@@ -232,7 +232,7 @@ bool is_valid(const vector<string>& expression) noexcept
 // calculates an expression and returns the result
 double calculate(const double& first, const double& second, const char& op)
 // calculates an expression and returns the result
-// supports only the operators +, -, /, * and ^
+// supports only the operators +, -, /, *, e and ^
 // throws a division by zero exception when detected
 {
 	switch (op) {
@@ -246,12 +246,42 @@ double calculate(const double& first, const double& second, const char& op)
 		if (second == 0)
 			throw runtime_error("division by zero.");
 		return first / second;
+	case 'e':
+		// TODO: check first and second before computing first*pow(10, second)
+		return first*pow(10, second);
 	case '^':
 		// TODO: check first and second before computing pow(first, second)
 		return pow(first, second);
 	default:
 		throw runtime_error("unsupported operator.");
 	}
+}
+
+// computes token
+double compute_token(const string& token)
+// computes token if contains specific operators
+// returns the computed value of the token
+{
+	// size of the token
+	size_t token_size = token.size();
+
+	// searches for the power ten operator 'e'
+	size_t found = token.find('e');
+
+	// if it finds the power ten operator
+	// identifies operands a and b, computes and returns a*10^b
+	if (found != string::npos) {
+		string a { "" }, b { "" };
+
+		for (size_t i = 0; i < found; ++i)
+			a.push_back(token[i]);
+		for (size_t i = found + 1; i < token_size; ++i)
+			b.push_back(token[i]);
+
+		return calculate(stod(a), stod(b), 'e');
+	}
+	else
+		return stod(token);
 }
 
 // computes expression
@@ -271,7 +301,7 @@ double compute_expression(const vector<string>& expression)
 			result.push(calculate(a, b, token[0]));
 		}
 		else
-			result.push(stod(token));
+			result.push(compute_token(token));
 	}
 	return result.top();
 }

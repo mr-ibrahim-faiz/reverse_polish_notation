@@ -22,7 +22,7 @@ try
 		cout << "> ";
 		expression = get_expression();
 
-		// checks if the user want to quit the program
+		// checks if the user wants to quit the program
 		// exits if the user enters "exit"
 		if (expression.size() == 1 && expression[0] == "exit")
 			break;
@@ -33,7 +33,7 @@ try
 		try {
 			// check if the expression is valid before computing it
 			if (is_valid(expression)) {
-				// computes and display postfix expression
+				// computes and display expression result
 				cout << compute_expression(expression) << endl;
 				cout << endl;
 			}

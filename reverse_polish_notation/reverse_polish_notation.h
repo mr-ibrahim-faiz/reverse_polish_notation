@@ -30,5 +30,8 @@ bool is_valid(const vector<string>&) noexcept;
 // calculates an expression and returns the result
 double calculate(const double&, const double&, const char&);
 
+// computes token
+double compute_token(const string&);
+
 // computes expression
 double compute_expression(const vector<string>&);
