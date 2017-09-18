@@ -23,6 +23,12 @@ vector<string> get_expression()
 	// peeks at the next character to see if we're at the end of the expression
 	for (string token; cin.peek() != '\n';) {
 		cin >> token;
+
+		// ignores whitespaces (especially at the end of the input)
+		while (isspace(cin.peek()) && cin.peek() != '\n') { // pseudo equivalent to: while(cin.peek() == ' ')
+			cin.ignore(1, ' ');
+		}
+
 		expression.push_back(token);
 	}
 
