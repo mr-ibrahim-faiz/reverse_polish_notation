@@ -24,12 +24,12 @@ vector<string> get_expression()
 	for (string token; cin.peek() != '\n';) {
 		cin >> token;
 
-		// ignores whitespaces (especially at the end of the input)
-		while (isspace(cin.peek()) && cin.peek() != '\n') { // pseudo equivalent to: while(cin.peek() == ' ')
-			cin.ignore(1, ' ');
-		}
+		if (!token.empty())
+			expression.push_back(token);
 
-		expression.push_back(token);
+		// ignores whitespaces (especially at the end of the input)
+		while (isspace(cin.peek()) && cin.peek() != '\n') // pseudo equivalent to: while(cin.peek() == ' ')
+			cin.ignore(1, ' ');
 	}
 
 	// deals with the newline left in cin
